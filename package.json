@@ -1,0 +1,13 @@
+{
+  "name": "mafia-party-game",
+  "version": "1.8.0",
+  "private": true,
+  "description": "Mafia party game: one phone deals secret roles while a narrator runs the night. Web + Android.",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "axe-core": "4.10.2"
+  }
+}
