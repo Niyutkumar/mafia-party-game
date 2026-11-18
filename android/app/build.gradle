@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Load the signing key details from ../keystore/keystore.properties (if present)
+def keystoreDir = rootProject.file('keystore')
+def keystorePropsFile = new File(keystoreDir, 'keystore.properties')
+def keystoreProps = new Properties()
+if (keystorePropsFile.exists()) {
+    keystorePropsFile.withInputStream { keystoreProps.load(it) }
+}
+
+android {
+    namespace 'com.mafia.game'   // where the Java code lives
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.niyutshah.mafia"   // permanent Google Play ID: never change it after the first upload
+        minSdk 24          // Android 7.0+
+        targetSdk 36       // Android 16: required by Google Play for new apps and updates
+        versionCode 9      // raise by 1 for every upload to Google Play
+        versionName "1.8"
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropsFile.exists()) {
+                storeFile new File(keystoreDir, keystoreProps['storeFile'])
+                storePassword keystoreProps['storePassword']
+                keyAlias keystoreProps['keyAlias']
+                keyPassword keystoreProps['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropsFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+// No external libraries: the app only uses classes built into Android itself.
+dependencies {
+}

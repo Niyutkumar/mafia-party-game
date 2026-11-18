@@ -1,0 +1,16 @@
+# Never upload these to GitHub or anywhere public
+keystore/
+*.jks
+*.keystore
+keystore.properties
+
+# Build output
+build/
+app/build/
+.gradle/
+local.properties
+*.apk
+*.aab
+*.apks
+.idea/
+*.iml

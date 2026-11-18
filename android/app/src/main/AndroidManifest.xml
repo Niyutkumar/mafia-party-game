@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- The app's only permission: a short buzz on card flips, turn unlocks and the dawn bell.
+         No internet, no storage, no location, no contacts. The game works fully offline. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Portrait is preferred, not required: Chromebooks and landscape-only screens can still install. -->
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+
+    <!-- Android 11+ hides other apps unless declared: needed to find the text-to-speech engine -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <!-- allowBackup / fullBackupContent / dataExtractionRules: nothing from the app is copied
+         into cloud backups or onto a new phone. -->
+    <application
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="false"
+        android:enableOnBackInvokedCallback="true"
+        android:appCategory="game"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:hardwareAccelerated="true"
+        android:theme="@style/Theme.Mafia">
+
+        <!-- configChanges: rotating, resizing, dark mode, bold text etc. never restart a game in progress.
+             Phones stay in portrait; Android 16 lets tablets rotate, and the game fits both. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden|navigation|touchscreen|uiMode|colorMode|density|fontScale|fontWeightAdjustment|locale|layoutDirection|grammaticalGender"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
