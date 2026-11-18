@@ -1,0 +1,24 @@
+# Signing keys and passwords: never commit these
+keystore/
+*.jks
+*.keystore
+keystore.properties
+
+# Build output
+*.apk
+*.aab
+*.apks
+android/build/
+android/app/build/
+android/.gradle/
+android/local.properties
+android/.idea/
+*.iml
+
+# Tests
+node_modules/
+test-results/
+playwright-report/
+
+# macOS
+.DS_Store
